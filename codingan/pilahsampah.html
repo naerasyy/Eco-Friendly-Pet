@@ -1,0 +1,97 @@
+
+<!-- DAILY QUEST: PILAH SAMPAH -->
+<div class="quest-item" id="wasteQuest">
+
+  <div class="quest-info">
+    <h3>Pilah Sampah</h3>
+    <p>Foto sampah untuk menyelesaikan quest!</p>
+  </div>
+
+  <input
+    type="checkbox"
+    id="wasteQuestCheckbox"
+    aria-label="Selesaikan quest pilah sampah"
+  />
+
+</div>
+
+
+<!-- WASTE CAMERA MODAL -->
+<div class="waste-modal" id="wasteModal">
+
+  <div class="waste-modal-content">
+
+    <button class="waste-close" id="closeWasteModal">
+      &times;
+    </button>
+
+    <h2>♻️ Pilah Sampah!</h2>
+
+    <p id="wasteInstruction">
+      Aktifkan kamera dan foto sampah yang ingin kamu pilah.
+    </p>
+
+    <!-- CAMERA -->
+    <div class="waste-camera-container">
+
+      <video
+        id="wasteCamera"
+        autoplay
+        playsinline
+        muted
+      ></video>
+
+      <canvas id="wasteCanvas" hidden></canvas>
+
+      <img
+        id="wastePreview"
+        alt="Foto sampah yang akan diperiksa"
+        hidden
+      />
+
+    </div>
+
+    <!-- CAMERA BUTTON -->
+    <button id="startWasteCamera" class="waste-btn">
+      Aktifkan Kamera
+    </button>
+
+    <button id="captureWastePhoto" class="waste-btn" hidden>
+      Ambil Foto
+    </button>
+
+    <button id="retakeWastePhoto" class="waste-btn" hidden>
+      Foto Ulang
+    </button>
+
+    <button id="scanWastePhoto" class="waste-btn" hidden>
+      Scan dengan AI
+    </button>
+
+    <!-- SCAN STATUS -->
+    <div id="wasteScanStatus"></div>
+
+    <!-- RESULT -->
+    <div id="wasteResult" hidden>
+
+      <h3>Hasil Pemindaian!</h3>
+
+      <p>Kategori sampah:</p>
+
+      <h2 id="wasteCategory"></h2>
+
+      <p id="wasteEmission"></p>
+
+      <button id="finishWasteQuest" class="waste-btn">
+        Selesaikan Quest
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PET SPEECH BUBBLE -->
+<!-- Jika sudah ada bubble pet, gunakan elemen yang lama. -->
+<div id="petBubble" class="pet-bubble"></div>
