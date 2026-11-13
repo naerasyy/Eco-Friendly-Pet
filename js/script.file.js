@@ -80,3 +80,86 @@ DB.cur=em;err="";save();render()}
 else if(k==="chat"||k==="chat2"){const t=g("m").trim();if(!t)return;S.msgs.push({s:"user",t});const r=reply(t);S.msgs.push({s:"pet",t:r});speech=r;save();if(k==="chat")modal="chat";render()}
 else if(k==="trip"){const d=+g("d"),F={walk:0,bicycle:0,bus:.089,train:.041,car:.192,motorcycle:.103};add("transport","Perjalanan "+tm,"transport",Math.max(0,d*F[g("a")]-d*F[tm]),d);modal=null;render()}});
 render();
+
+/* =================================
+   ROLE B - PET VISUAL INTERACTION
+================================= */
+
+// Simpan ekspresi normal pet
+let originalPet = "";
+
+// Fungsi mengubah ekspresi pet
+function happyPet(message) {
+
+  const petStage = document.getElementById("ps");
+  const speechBubble = document.getElementById("sp");
+
+  if (!petStage || !speechBubble) return;
+
+  const petSVG = petStage.querySelector(".pixel-pet");
+
+  if (!petSVG) return;
+
+  // Simpan tampilan pet sebelum berubah
+  if (!originalPet) {
+    originalPet = petSVG.innerHTML;
+  }
+
+  // Ubah ekspresi mata dan mulut menjadi senang
+  const eyes = petSVG.querySelectorAll("rect");
+
+  eyes.forEach(eye => {
+    if (eye.getAttribute("fill") === "#292c2b") {
+      eye.setAttribute("fill", "#292c2b");
+    }
+  });
+
+  // Tambahkan pipi merah muda
+  if (!petSVG.querySelector(".happy-cheeks")) {
+    const cheeks = document.createElementNS(
+      "http://www.w3.org/2000/svg", "g"
+    );
+
+    cheeks.classList.add("happy-cheeks");
+
+    cheeks.innerHTML = `
+      <rect x="35" y="65" width="9" height="5" fill="#f28b82"/>
+      <rect x="77" y="65" width="9" height="5" fill="#f28b82"/>
+    `;
+
+    petSVG.appendChild(cheeks);
+  }
+
+  // Tambahkan efek hati
+  speechBubble.innerHTML =
+    message + " 💚";
+
+  // Efek pet sedikit membesar
+  petStage.style.transform = "translate(-50%, -50%) scale(1.12)";
+  petStage.style.transition = "transform 0.3s ease";
+
+  // Kembalikan ukuran normal setelah 2 detik
+  clearTimeout(window.petHappyTimer);
+
+  window.petHappyTimer = setTimeout(() => {
+    petStage.style.transform = "translate(-50%, -50%) scale(1)";
+  }, 2000);
+}
+
+
+// Hubungkan dengan tombol makan dan bermain
+document.addEventListener("click", function(e) {
+
+  const button = e.target.closest("[data-a]");
+
+  if (!button) return;
+
+  if (button.dataset.a === "feed") {
+    happyPet("Nyam! Aku senang sekali!");
+  }
+
+  if (button.dataset.a === "play") {
+    happyPet("Horeee! Ayo bermain lagi!");
+  }
+
+});
