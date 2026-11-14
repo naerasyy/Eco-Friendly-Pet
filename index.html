@@ -105,6 +105,20 @@
     <button type="button" class="primary-btn" data-ref="submit" disabled>Kirim</button>
   </div>
 </template>
+
+<template id="qv-tpl-chat">
+  <p class="qv-hint">Ngobrol interaktif dengan maskot peliharaanmu!</p>
+  <div class="chat-container" style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 10px; height: 200px; overflow-y: auto; margin-bottom: 10px;">
+    <div class="pet-message" style="color: #2e7d32; margin-bottom: 6px;">EcoPet: Halo Penjaga! Ada yang ingin didiskusikan tentang misi hijau kita hari ini? ✨</div>
+  </div>
+  <label class="qv-field">Pesan
+    <input type="text" data-ref="chatInput" placeholder="Ketik pesan ke pet..." maxlength="150">
+  </label>
+  <p class="qv-status" data-ref="status"></p>
+  <div class="qv-actions">
+    <button type="button" class="primary-btn" data-ref="sendChat">Kirim Pesan</button>
+  </div>
+</template>
   
   <script src="script.js"></script>
   <script src="quest-verification.js"></script>
