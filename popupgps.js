@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
           position => {
             const { latitude, longitude, accuracy } = position.coords;
 
-            if (accuracy > 50) return;
+            if (accuracy > 200) return;
 
             const currentPosition = {
               lat: latitude,
