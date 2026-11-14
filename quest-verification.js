@@ -360,13 +360,26 @@
     }
 
     async function getAIResponse(userText) {
-      await new Promise(r => setTimeout(r, 500)); // Simulasi jeda berpikir AI
+      await new Promise(r => setTimeout(r, 600));
       const msg = userText.toLowerCase();
-      if (/makan|lapar/.test(msg)) return "Nyam! Makasih ya, makanannya sehat dan ramah lingkungan! 🌱";
-      if (/sampah|plastik|botol/.test(msg)) return "Yuk, kita pilah sampah botol plastiknya di fitur pemilahan biar bumi makin bersih! ♻️";
-      if (/halo|hai|hi|p/.test(msg)) return "Halo Penjaga! Ada yang bisa kubantu untuk misi hijau hari ini? ✨";
-      if (/quest|misi|jalan|gps/.test(msg)) return "Semangat jalankan misi transit dan kumpulkan poin hijaunya ya! 🗺️";
-      return "Wah, obrolan yang seru! Tetap semangat selesaikan quest hijaunya ya, Penjaga! 💚";
+
+      if (msg.includes('plastik') || msg.includes('sampah')) {
+        const matchNum = msg.match(/\d+/);
+        const kg = matchNum ? parseInt(matchNum[0]) : 1;
+        const co2Saved = (kg * 1.5).toFixed(1);
+        return `Hebat banget! Memilah sampah plastik seberat ${kg} kg bisa mencegah sekitar ${co2Saved} kg emisi CO₂ terlepas ke udara dan mengurangi tumpukan di TPA! ♻️🌍`;
+      } 
+      else if (msg.includes('makan') || msg.includes('lapar')) {
+        return "Nyam! Makan menu nabati jauh lebih ramah lingkungan karena jejak karbonnya kecil. 🌱";
+      }
+      else if (msg.includes('halo') || msg.includes('hai') || msg.includes('hi') || msg.includes('p')) {
+        return "Halo Penjaga! Ada misi hijau apa yang mau kita selesaikan hari ini? ✨";
+      }
+      else if (msg.includes('quest') || msg.includes('misi')) {
+        return "Semangat terus selesaikan quest hijaunya ya! Setiap aksi kecil sangat berarti buat bumi kita. 🗺️💚";
+      }
+      
+      return "Wah, obrolan yang seru! Yang penting, setiap aksi kecil kita hari ini berdampak besar buat kelestarian bumi. Yuk selesaikan quest lainnya! 💚";
     }
 
     sendBtn.onclick = async () => {
