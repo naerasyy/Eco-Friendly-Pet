@@ -336,6 +336,57 @@
     };
   }
 
+/* ================= 8. CHAT INTERAKTIF DENGAN PET ================= */
+  function setupChat(body, done) {
+    const q = refOf(body);
+    const chatInput = q('chatInput'), sendBtn = q('sendChat'), statusEl = q('status');
+    const container = body.querySelector('.chat-container');
+    const petName = "EcoPet";
+
+    function appendMsg(sender, text) {
+      const div = document.createElement('div');
+      div.style.marginBottom = '6px';
+      if (sender === 'User') {
+        div.style.color = '#1565c0';
+        div.style.textAlign = 'right';
+        div.textContent = `Kamu: ${text}`;
+      } else {
+        div.style.color = '#2e7d32';
+        div.style.textAlign = 'left';
+        div.textContent = `${petName}: ${text}`;
+      }
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function getAIResponse(userText) {
+      await new Promise(r => setTimeout(r, 500)); // Simulasi jeda berpikir AI
+      const msg = userText.toLowerCase();
+      if (/makan|lapar/.test(msg)) return "Nyam! Makasih ya, makanannya sehat dan ramah lingkungan! 🌱";
+      if (/sampah|plastik|botol/.test(msg)) return "Yuk, kita pilah sampah botol plastiknya di fitur pemilahan biar bumi makin bersih! ♻️";
+      if (/halo|hai|hi|p/.test(msg)) return "Halo Penjaga! Ada yang bisa kubantu untuk misi hijau hari ini? ✨";
+      if (/quest|misi|jalan|gps/.test(msg)) return "Semangat jalankan misi transit dan kumpulkan poin hijaunya ya! 🗺️";
+      return "Wah, obrolan yang seru! Tetap semangat selesaikan quest hijaunya ya, Penjaga! 💚";
+    }
+
+    sendBtn.onclick = async () => {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      appendMsg('User', text);
+      chatInput.value = '';
+      setStatus(statusEl, 'EcoPet sedang mengetik...');
+
+      const reply = await getAIResponse(text);
+      setStatus(statusEl, '');
+      appendMsg('Pet', reply);
+    };
+
+    chatInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') sendBtn.click();
+    });
+  }
+
   /* ================= 4. MAKAN MENU NABATI ================= */
   function setupVegan(body, done) {
     const q = refOf(body);
