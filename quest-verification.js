@@ -466,7 +466,8 @@
     'plant-meal': () => openModal('Makan menu nabati', 'qv-tpl-vegan', setupVegan),
     'standby': () => openModal('Matikan perangkat siaga', 'qv-tpl-list', setupStandby),
     'walk': () => openModal('Jalan kaki', 'qv-tpl-gps', setupGps('walk')),
-    'learn': () => openModal('Pelajari fakta alam', 'qv-tpl-learn', setupLearn)
+    'learn': () => openModal('Pelajari fakta alam', 'qv-tpl-learn', setupLearn),
+    'chat': () => openModal('Ngobrol dengan EcoPet', 'qv-tpl-chat', setupChat)
   };
 
   function bonusResult(id) {
