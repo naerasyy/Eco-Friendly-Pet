@@ -1,0 +1,124 @@
+
+/* STANDBY QUEST MODAL */
+
+.standby-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.65);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.standby-modal.active {
+  display: flex;
+}
+
+.standby-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  padding: 28px 24px;
+  background: #fff9e9;
+  border: 3px solid #263b29;
+  box-shadow: 7px 7px 0 #263b29;
+  text-align: center;
+  color: #263b29;
+  animation: standbyAppear 0.2s ease;
+}
+
+@keyframes standbyAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.standby-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.standby-modal-content h2 {
+  font-size: 22px;
+  margin: 0 0 12px;
+}
+
+.standby-modal-content p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.standby-modal-content label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin: 20px 0 8px;
+}
+
+.standby-modal-content input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  border: 2px solid #263b29;
+  background: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.standby-modal-content input:focus {
+  border-color: #6d963d;
+}
+
+.standby-info {
+  background: #e6efd9;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.standby-error {
+  color: #c0392b;
+  font-size: 12px;
+  min-height: 16px;
+}
+
+#standbySubmit {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  border: 2px solid #263b29;
+  background: #8caf60;
+  color: #203321;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #263b29;
+}
+
+#standbySubmit:hover {
+  background: #a5c87b;
+}
+
+.standby-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 27px;
+  cursor: pointer;
+  color: #263b29;
+}
+
+/* PET SPEECH BUBBLE */
+
+#petBubble.active {
+  display: block;
+}

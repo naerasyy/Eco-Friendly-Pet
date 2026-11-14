@@ -1,0 +1,148 @@
+
+/* NATURE FACT QUEST MODAL */
+
+.nature-fact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  background: rgba(20, 35, 20, 0.65);
+}
+
+.nature-fact-modal.active {
+  display: flex;
+}
+
+.nature-fact-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+
+  padding: 30px 25px;
+
+  background: #fffdf2;
+  border: 3px solid var(--ink, #263322);
+  border-radius: 18px;
+
+  box-shadow: 7px 7px 0 var(--ink, #263322);
+
+  text-align: center;
+  animation: naturePop 0.25s ease;
+}
+
+@keyframes naturePop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.nature-fact-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.nature-fact-card h2 {
+  margin: 5px 0 12px;
+  color: #365c35;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.nature-fact-card p {
+  color: #52614b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.nature-fact-card label {
+  display: block;
+  text-align: left;
+  margin: 20px 0 8px;
+
+  color: #365c35;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+#natureFactInput {
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+
+  padding: 12px;
+
+  border: 2px solid #a9bd91;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #263322;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+  box-sizing: border-box;
+}
+
+#natureFactInput:focus {
+  border-color: #608b4c;
+  box-shadow: 0 0 0 3px rgba(96, 139, 76, 0.15);
+}
+
+.nature-fact-error {
+  min-height: 18px;
+  margin: 5px 0 !important;
+
+  color: #d94b4b !important;
+  font-size: 12px !important;
+}
+
+.nature-fact-submit {
+  width: 100%;
+  padding: 13px;
+
+  margin-top: 10px;
+
+  border: 2px solid #263322;
+  border-radius: 10px;
+
+  background: #a8d58c;
+  color: #263322;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.nature-fact-submit:hover {
+  background: #8fc76e;
+  transform: translateY(-2px);
+}
+
+.nature-fact-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+
+  border: none;
+  background: transparent;
+
+  color: #52614b;
+  font-size: 28px;
+
+  cursor: pointer;
+}

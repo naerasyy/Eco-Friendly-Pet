@@ -1,0 +1,41 @@
+
+<div id="standbyQuestModal" class="standby-modal">
+  <div class="standby-modal-content">
+
+    <button id="standbyClose" class="standby-close" type="button">
+      &times;
+    </button>
+
+    <div class="standby-icon">🔌</div>
+
+    <h2>Matikan Perangkat Siaga!</h2>
+
+    <p>
+      Perangkat elektronik apa yang sudah kamu matikan
+      agar tidak terus menggunakan listrik dalam mode standby?
+    </p>
+
+    <label for="standbyDeviceInput">
+      Nama perangkat
+    </label>
+
+    <input
+      type="text"
+      id="standbyDeviceInput"
+      placeholder="Contoh: TV, AC, komputer..."
+      autocomplete="off"
+    />
+
+    <p class="standby-info">
+      🌱 Kami akan memperkirakan listrik dan emisi
+      yang berhasil kamu hemat!
+    </p>
+
+    <p id="standbyError" class="standby-error"></p>
+
+    <button id="standbySubmit" type="button">
+      Konfirmasi
+    </button>
+
+  </div>
+</div>
