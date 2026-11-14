@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   // LOAD HTML POPUP
-  const response = await fetch("/matiin.html");
+  const response = await fetch("matiin.html");
 
   if (!response.ok) {
     console.error("Gagal memuat Matiin HTML");
