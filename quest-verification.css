@@ -1,0 +1,63 @@
+cat > quest-verification.css << 'EOF'
+.qv [hidden] { display: none !important; }
+
+.qv-hint { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.qv-field { display: block; margin-bottom: 12px; font-size: 12px; font-weight: 800; }
+.qv-field input, .qv-field select, .qv-field textarea {
+  display: block; width: 100%; margin-top: 6px; padding: 12px;
+  border: 2px solid var(--line); background: #fff; font: inherit; font-weight: 400; color: var(--ink);
+}
+.qv-field textarea { resize: vertical; }
+.qv :focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+.qv-status { min-height: 1.4em; margin: 8px 0; font-size: 12px; color: var(--muted); }
+.qv-status.qv-err { color: #7b3026; font-weight: 700; }
+.qv-status.qv-ok { color: var(--green); font-weight: 700; }
+.qv-counter { margin: 0; text-align: right; font-size: 12px; color: var(--muted); }
+.qv-counter.qv-ok { color: var(--green); font-weight: 800; }
+
+.qv-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.qv-actions > button { flex: 1 1 auto; }
+.qv-btn {
+  display: inline-flex; justify-content: center; align-items: center; padding: 14px 20px;
+  border: 2px solid var(--ink); background: #fff; color: var(--ink);
+  font-weight: 800; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; transition: .15s;
+}
+.qv-btn:hover:not(:disabled) { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.qv-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.qv-camera { aspect-ratio: 4 / 3; overflow: hidden; border: 2px solid var(--ink); background: #101a15; }
+.qv-camera video, .qv-camera img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.qv-demo { margin-top: 10px; padding: 10px; border: 2px dashed var(--line); background: #eef3df; }
+
+.qv-stats { display: flex; gap: 10px; margin: 6px 0 10px; }
+.qv-stats > div { flex: 1; padding: 10px 6px; text-align: center; border: 2px solid var(--line); background: #fff; }
+.qv-stats b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+.qv-stats small { font: 700 9px var(--pixel); color: var(--muted); }
+.qv-progress { height: 12px; border: 2px solid var(--ink); background: #fff; }
+.qv-progress > i { display: block; width: 0; height: 100%; background: var(--green); transition: width .4s; }
+
+.qv-rows { display: grid; gap: 8px; }
+.qv-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 8px 10px; border: 2px solid var(--line); background: #fff; font-size: 13px;
+}
+.qv-row label { flex: 1; display: flex; align-items: center; gap: 8px; }
+.qv-row input[type="number"] { width: 84px; padding: 6px 8px; border: 2px solid var(--line); font: inherit; }
+
+.speech.qv-rich {
+  width: min(340px, 88%); max-width: none; text-align: left; font-size: 12px; line-height: 1.5;
+  transform: translateX(-50%);
+}
+.speech .qv-speech-body { max-height: 132px; overflow-y: auto; }
+.speech .qv-speech-body strong { display: block; margin-bottom: 4px; }
+.speech .qv-speech-body ul { list-style: none; margin: 0; padding: 0; }
+.speech .qv-speech-body li { margin-bottom: 4px; }
+.speech.qv-fail { background: #ffe2dc; }
+.speech.qv-fail i { background: #ffe2dc; }
+
+@media (max-width: 640px) {
+  .qv-actions > button { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .qv-progress > i { transition: none; } }
+EOF
