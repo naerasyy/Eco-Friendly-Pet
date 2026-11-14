@@ -1,7 +1,7 @@
 // LOAD CSS OTOMATIS
 const plantCSS = document.createElement("link");
 plantCSS.rel = "stylesheet";
-plantCSS.href = "/plant-quest.css";
+plantCSS.href = "makanannabati.css";
 document.head.appendChild(plantCSS);
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -54,13 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Mencari kotak centang di dalam kartu quest
-    const questCard = quest.closest(".quest-item") ||
-                      quest.parentElement.parentElement;
-
-    const checkbox = questCard.querySelector(
-        'input[type="checkbox"]'
-    );
+    // Mencari checkbox terdekat dari teks quest secara otomatis
+    const labelElement = quest.closest("label") || quest.parentElement;
+    const questCard = labelElement.closest(".quest-item") || labelElement.closest("div") || quest.parentElement;
+    
+    // Cari checkbox baik di dalam elemen terdekat maupun di dokumen sekitar
+    const checkbox = questCard.querySelector('input[type="checkbox"]') || 
+                     document.querySelector('input[type="checkbox"]');
 
     if (!checkbox) {
         console.warn("Checkbox quest tidak ditemukan.");

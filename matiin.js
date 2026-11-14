@@ -2,10 +2,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   // LOAD HTML POPUP
-  const response = await fetch("/standby-quest.html");
+  const response = await fetch("/matiin.html");
 
   if (!response.ok) {
-    console.error("Gagal memuat Standby Quest HTML");
+    console.error("Gagal memuat Matiin HTML");
     return;
   }
 
@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.body.insertAdjacentHTML("beforeend", modalHTML);
 
   // ELEMENTS
-  const modal = document.getElementById("standbyQuestModal");
-  const input = document.getElementById("standbyDeviceInput");
-  const submit = document.getElementById("standbySubmit");
-  const close = document.getElementById("standbyClose");
-  const error = document.getElementById("standbyError");
+  const modal = document.getElementById("matiinModal");
+  const input = document.getElementById("matiinDeviceInput");
+  const submit = document.getElementById("matiinSubmit");
+  const close = document.getElementById("matiinClose");
+  const error = document.getElementById("matiinError");
 
   let activeCheckbox = null;
 
