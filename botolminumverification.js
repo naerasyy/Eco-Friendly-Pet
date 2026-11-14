@@ -31,6 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
   window.openBottleCamera = async function() {
     modal.style.display = "flex";
 
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+  alert("Browser atau perangkatmu tidak mendukung akses kamera langsung.");
+  return;
+}
+
     try {
       stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
