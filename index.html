@@ -12,6 +12,99 @@
 </head>
 <body>
   <div id="root"></div>
+  <script>
+  window.QV_CONFIG = {
+    demo: true,
+    bottleEndpoint: ''   // contoh: '/api/classify-bottle' (backend yang memanggil AI NVIDIA)
+  };
+</script>
+
+<template id="qv-tpl-bottle">
+  <p class="qv-hint">Foto botol minummu. Pastikan botol terlihat utuh dan cukup terang.</p>
+  <div class="qv-camera">
+    <video id="qv-video" autoplay playsinline muted></video>
+    <img id="qv-photo" alt="Foto botol minum" hidden>
+  </div>
+  <canvas id="qv-canvas" hidden></canvas>
+  <p class="qv-status" data-ref="status"></p>
+  <div class="qv-demo" data-ref="demo" hidden>
+    <p class="qv-hint">MODE UJI COBA — AI NVIDIA belum terhubung. Pilih hasil simulasi:</p>
+    <div class="qv-actions">
+      <button type="button" class="qv-btn" data-demo="reusable">Reusable</button>
+      <button type="button" class="qv-btn" data-demo="plastic">Plastik</button>
+    </div>
+  </div>
+  <div class="qv-actions">
+    <button type="button" class="qv-btn" data-ref="snap">Ambil foto</button>
+    <button type="button" class="qv-btn" data-ref="retake" hidden>Foto ulang</button>
+    <button type="button" class="primary-btn" data-ref="verify" hidden>Verifikasi</button>
+  </div>
+</template>
+
+<template id="qv-tpl-gps">
+  <p class="qv-hint" data-ref="intro"></p>
+  <label class="qv-field" data-ref="modeWrap">Jenis transportasi
+    <select data-ref="mode">
+      <option value="0.089">Bus / TransJakarta</option>
+      <option value="0.041">KRL / MRT / LRT</option>
+      <option value="0.105">Angkot / Mikrotrans</option>
+    </select>
+  </label>
+  <div class="qv-stats">
+    <div><b data-ref="time">00:00</b><small>WAKTU</small></div>
+    <div><b data-ref="dist">0.00</b><small>KM</small></div>
+    <div data-ref="stepsBox"><b data-ref="steps">0</b><small>LANGKAH</small></div>
+  </div>
+  <div class="qv-progress" data-ref="progWrap"><i data-ref="prog"></i></div>
+  <p class="qv-status" data-ref="status"></p>
+  <div class="qv-actions">
+    <button type="button" class="qv-btn" data-ref="locate">Aktifkan lokasi</button>
+    <button type="button" class="primary-btn" data-ref="start" disabled>Start</button>
+    <button type="button" class="qv-btn" data-ref="finish" disabled>Selesai</button>
+  </div>
+</template>
+
+<template id="qv-tpl-list">
+  <p class="qv-hint" data-ref="intro"></p>
+  <div class="qv-rows" data-ref="list"></div>
+  <p class="qv-status" data-ref="status"></p>
+  <div class="qv-actions">
+    <button type="button" class="primary-btn" data-ref="submit">Hitung dampak</button>
+  </div>
+</template>
+
+<template id="qv-tpl-vegan">
+  <p class="qv-hint">Tulis menu yang kamu makan (contoh: gado-gado, tempe orek, pecel sayur).</p>
+  <label class="qv-field">Makanan
+    <input type="text" data-ref="food" maxlength="120" placeholder="Nama menu atau bahan utamanya">
+  </label>
+  <label class="qv-field">Jumlah porsi
+    <select data-ref="portion">
+      <option value="1">1 porsi</option>
+      <option value="2">2 porsi</option>
+      <option value="3">3 porsi</option>
+    </select>
+  </label>
+  <p class="qv-status" data-ref="status"></p>
+  <div class="qv-actions">
+    <button type="button" class="primary-btn" data-ref="submit">Hitung dampak</button>
+  </div>
+</template>
+
+<template id="qv-tpl-learn">
+  <p class="qv-hint">Tulis dengan kata-katamu sendiri. Isi materi minimal 100 kata.</p>
+  <label class="qv-field">Judul materi
+    <input type="text" data-ref="title" maxlength="100" placeholder="Contoh: Cara hutan mangrove menyerap karbon">
+  </label>
+  <label class="qv-field">Isi materi
+    <textarea data-ref="content" rows="8" placeholder="Apa yang kamu pelajari?"></textarea>
+  </label>
+  <p class="qv-counter"><span data-ref="count">0</span> / 100 kata</p>
+  <p class="qv-status" data-ref="status"></p>
+  <div class="qv-actions">
+    <button type="button" class="primary-btn" data-ref="submit" disabled>Kirim</button>
+  </div>
+</template>
 
   <script src="botolminumverification.js"></script>
   <script src="pilahsampah.js"></script>
@@ -21,5 +114,6 @@
   <script src="pelajari.js"></script>
   
   <script src="script.js"></script>
+  <script src="quest-verification.js"></script>
 </body>
 </html>
