@@ -3,34 +3,24 @@ const plantCSS = document.createElement("link");
 plantCSS.rel = "stylesheet";
 plantCSS.href = "makanannabati.css";
 document.head.appendChild(plantCSS);
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // Membuat popup otomatis
     const modalHTML = `
         <div id="plantQuestModal" class="plant-modal">
             <div class="plant-modal-content">
-
                 <button id="plantClose" class="plant-close">&times;</button>
-
                 <div class="plant-icon">🥗</div>
-
                 <h2>Makan Menu Nabati</h2>
-
                 <p>Apa makanan yang kamu konsumsi hari ini?</p>
-
-                <textarea id="plantFoodInput"
-                    placeholder="Contoh: Nasi, tempe, tahu, kangkung...">
-                </textarea>
-
+                <textarea id="plantFoodInput" placeholder="Contoh: Nasi, tempe, tahu, kangkung..."></textarea>
                 <p id="plantError"></p>
-
                 <button id="plantSubmit">Periksa Makanan</button>
-
             </div>
         </div>
     `;
 
-    // Cegah popup dibuat dua kali
     if (!document.getElementById("plantQuestModal")) {
         document.body.insertAdjacentHTML("beforeend", modalHTML);
     }
@@ -39,45 +29,52 @@ document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("plantFoodInput");
     const error = document.getElementById("plantError");
 
-    // Mencari quest berdasarkan tulisan
-    const questElements = [...document.querySelectorAll("*")];
+    // Gunakan setInterval untuk menunggu elemen quest selesai dirender oleh script.js
+    const checkInterval = setInterval(() => {
+        const questElements = [...document.querySelectorAll("*")];
+        const quest = questElements.find(element => {
+            return (
+                element.children.length === 0 &&
+                element.textContent.trim().toLowerCase() === "makan menu nabati"
+            );
+        });
 
-    const quest = questElements.find(element => {
-        return (
-            element.children.length === 0 &&
-            element.textContent.trim().toLowerCase() === "makan menu nabati"
-        );
-    });
+        if (!quest) return; // Coba lagi sampai elemennya muncul
 
-    if (!quest) {
-        console.warn("Quest Makan Menu Nabati tidak ditemukan.");
-        return;
-    }
+        // Ketemu! Hentikan interval pencarian
+        clearInterval(checkInterval);
 
-    // Mencari checkbox terdekat dari teks quest secara otomatis
-    const labelElement = quest.closest("label") || quest.parentElement;
-    const questCard = labelElement.closest(".quest-item") || labelElement.closest("div") || quest.parentElement;
-    
-    // Cari checkbox baik di dalam elemen terdekat maupun di dokumen sekitar
-    const checkbox = questCard.querySelector('input[type="checkbox"]') || 
-                     document.querySelector('input[type="checkbox"]');
+        const labelElement = quest.closest("label") || quest.parentElement;
+        const questCard = labelElement.closest(".quest-item") || labelElement.closest("div") || quest.parentElement;
+        
+        const checkbox = questCard.querySelector('input[type="checkbox"]') || 
+                         document.querySelector('input[type="checkbox"]') ||
+                         document.querySelector('[data-v="plant-meal"]'); // Mendukung tombol quest di script.js
 
-    if (!checkbox) {
-        console.warn("Checkbox quest tidak ditemukan.");
-        return;
-    }
+        // Jika bentuknya tombol quest dari script.js, ubah fungsinya untuk membuka modal
+        const questButton = quest.closest("button") || questCard.closest("button");
 
-    // Klik checkbox membuka popup
-    checkbox.addEventListener("change", function () {
-
-        if (this.checked) {
-            this.checked = false;
-            modal.classList.add("active");
-            input.value = "";
-            error.textContent = "";
+        if (questButton) {
+            questButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                modal.classList.add("active");
+                input.value = "";
+                error.textContent = "";
+            });
         }
 
-    });
+        if (checkbox) {
+            checkbox.addEventListener("change", function () {
+                if (this.checked) {
+                    this.checked = false;
+                    modal.classList.add("active");
+                    input.value = "";
+                    error.textContent = "";
+                }
+            });
+        }
+
+    }, 300); // Cek setiap 300 milidetik sampai elemen quest muncul
 
     // Tutup popup
     document.getElementById("plantClose").onclick = () => {
@@ -98,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Periksa makanan
     document.getElementById("plantSubmit").onclick = function () {
-
         const food = input.value.trim().toLowerCase();
 
         if (!food) {
@@ -107,17 +103,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const detected = animalFoods.filter(item => {
-            const regex = new RegExp(
-                "(^|[^a-z])" + item + "([^a-z]|$)",
-                "i"
-            );
-
+            const regex = new RegExp("(^|[^a-z])" + item + "([^a-z]|$)", "i");
             return regex.test(food);
         });
 
         const isPlantBased = detected.length === 0;
 
-        // Hasil pemeriksaan
         const result = isPlantBased
             ? "TERINDIKASI FULL NABATI 🌱"
             : "MENGANDUNG PRODUK HEWANI 🍗";
@@ -128,25 +119,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modal.classList.remove("active");
 
-        // Cari bubble pet yang sudah ada
-        const bubble = document.getElementById("petBubble");
+        const bubble = document.getElementById("petBubble") || document.getElementById("sp");
 
         if (bubble) {
-            bubble.innerHTML = `
-                <strong>🥗 MAKANAN ANDA:</strong>
-                <br>${result}
-                <br><br>${message}
-            `;
-
+            bubble.innerHTML = `<strong>🥗 MAKANAN ANDA:</strong><br>${result}<br><br>${message}`;
             bubble.classList.add("active");
         } else {
             alert(result + "\n\n" + message);
         }
-
-        // Tandai quest selesai
-        checkbox.checked = true;
-        checkbox.disabled = true;
-
     };
 
 });
